@@ -4,7 +4,4 @@
 #####    based in South East England.  http://www.ibexuk.com     #####
 ######################################################################
 
-Simple PIC18 DMX transmit driver for C18 compiler
-
-This code uses interrupts to TX as fast as possible.
-A timer is also used to provide the timing of the DMX MAB and BREAK.
+Visit http://www.embedded-code.com/source-code/communications/dmx512/pic18-dmx-transmit-driver for project information
