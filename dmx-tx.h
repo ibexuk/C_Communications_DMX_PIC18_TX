@@ -48,7 +48,7 @@ should test using a DMX source transmitting at the fastest possible speed (many 
 
 	//----- SETUP TIMER 1 FOR DMX TX -----
 	IPR1bits.TMR1IP = 1;				//TMR1 interrupt at high priority
-	T1CON = 0b10000011;					//Timer 1 on, internal, 1:1 prescale, R/W 16bits in 1 operation
+	T1CON = 0b10000001;					//Timer 1 on, internal, 1:1 prescale, R/W 16bits in 1 operation <<<<<CHECK THIS VALUE IS RIGHT FOR YOUR PIC18 DEVICE
 
 	//----- SETUP UART1 FOR DMX OUT -----
 	TXSTA1 = 0b01100100;				//TX enabled, 9bit,  BRGH on (on=b2 high)
@@ -59,6 +59,11 @@ should test using a DMX source transmitting at the fastest possible speed (many 
 
 	//----- INITIALISE DMX TX -----
 	dmx_tx_initalise();
+
+	//----- ENABLE INTERRUPTS -----
+	INTCONbits.PEIE = 1;					//Enable peripheral interrupts
+	ENABLE_INT;
+
 
 
 //##### INTERRUPT HANDER #####
@@ -85,9 +90,9 @@ should test using a DMX source transmitting at the fastest possible speed (many 
 #define	DMX_TX_TIMER_IRQ_ENABLE_BIT(state)	PIE1bits.TMR1IE = state
 #define	DMX_TX_TIMER_IRQ_FLAG_BIT(state)	PIR1bits.TMR1IF = state
 #define	DMX_TX_TIMER_IRQ_FLAG_BIT_READ		PIR1bits.TMR1IF
-#define DMX_TX_SETUP_TIMER_130US			TMR1H = 0xfa; TMR1L = 0xeb		//Set timer to trigger in 130uS based on your osc speed etc (0xffff - 130uS)
-#define	DMX_TX_SETUP_TIMER_52US				TMR1H = 0xfd; TMR1L = 0xf7		//Set timer to trigger in 52uS based on your osc speed etc (0xffff - 52uS)
-#define DMX_TX_SETUP_TIMER_8US				TMR1H = 0xff; TMR1L = 0xaf			//Set timer to trigger in 8uS based on your osc speed etc (0xffff - 8uS)
+#define DMX_TX_SETUP_TIMER_130US			TMR1H = 0xfa; TMR1L = 0xeb		//Set timer to trigger in 130uS based on your osc speed etc (0xffff - 130uS) <<<<< SET FOR YOUR OSC SPEED
+#define	DMX_TX_SETUP_TIMER_52US				TMR1H = 0xfd; TMR1L = 0xf7		//Set timer to trigger in 52uS based on your osc speed etc (0xffff - 52uS) <<<<< SET FOR YOUR OSC SPEED
+#define DMX_TX_SETUP_TIMER_8US				TMR1H = 0xff; TMR1L = 0xaf		//Set timer to trigger in 8uS based on your osc speed etc (0xffff - 8uS) <<<<< SET FOR YOUR OSC SPEED
 
 #define	DMX_TX_UART_IRQ_ENABLE_BIT(state)	PIE1bits.TX1IE = state
 #define	DMX_TX_UART_IRQ_FLAG_BIT(state)		PIR1bits.TX1IF = state
